@@ -1,19 +1,19 @@
 {
-  "name": "phoco",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ProGamer2711/PhoCo.git"
-  },
-  "author": "ProGamer2711&Cvetelina5566",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ProGamer2711/PhoCo/issues"
-  },
-  "homepage": "https://github.com/ProGamer2711/PhoCo#readme"
+	"name": "phoco",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ProGamer2711/PhoCo.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ProGamer2711/PhoCo/issues"
+	},
+	"homepage": "https://github.com/ProGamer2711/PhoCo#readme"
 }

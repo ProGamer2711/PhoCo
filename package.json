@@ -15,5 +15,8 @@
 	"bugs": {
 		"url": "https://github.com/ProGamer2711/PhoCo/issues"
 	},
-	"homepage": "https://github.com/ProGamer2711/PhoCo#readme"
+	"homepage": "https://github.com/ProGamer2711/PhoCo#readme",
+	"dependencies": {
+		"jimp": "^0.16.1"
+	}
 }

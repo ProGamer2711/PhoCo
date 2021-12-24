@@ -3,21 +3,29 @@ const Jimp = require("jimp");
 
 module.exports = async (path, comments) => {
 	const originalImage = await Jimp.read(path);
+	const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
 
 	const maxElement = comments.reduce(
 		(maxEl, currentEl) =>
 			(maxEl = maxEl.length < currentEl.length ? currentEl : maxEl)
 	);
 
-	const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
-
 	const textWidth = Jimp.measureText(font, maxElement);
-
 	const addedWidth = textWidth > 500 ? textWidth / 2 : textWidth;
+	const commentsHeight = comments.reduce((commentsHeight, comment) => {
+		const textWidth = Jimp.measureText(font, comment);
+		const textHeight = Jimp.measureTextHeight(font, comment);
+		const lines = Math.ceil(textWidth / addedWidth);
+		const height = textHeight * lines;
+		return commentsHeight + height;
+	}, 0);
+	const imageHeight = commentsHeight + 10 * (comments.length + 3);
+
+	originalImage.resize(Jimp.AUTO, imageHeight);
 
 	const newImage = new Jimp(
 		originalImage.getWidth() + addedWidth,
-		originalImage.getHeight(),
+		imageHeight,
 		0xffffffff
 	);
 
@@ -50,7 +58,7 @@ module.exports = async (path, comments) => {
 			startHeight,
 			text,
 			addedWidth,
-			(err, image, { x, y }) => {
+			(err, image, { y }) => {
 				if (err) console.log(err);
 				comments[index + 1]
 					? loadComments(
@@ -67,6 +75,6 @@ module.exports = async (path, comments) => {
 		);
 	}
 
-	newImage.write(path.split(".")[0] + "_comments.png");
+	newImage.write(`PhoCo_${path.split(".")[0]}.png`);
 	fs.rmSync(path);
 };

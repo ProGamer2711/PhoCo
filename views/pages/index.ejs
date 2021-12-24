@@ -1,8 +1,10 @@
 <%- include('../partials/header', { title, stylesheet }); %>
 
-<form action="/" method="POST" enctype="multipart/form-data">
-	<input type="file" name="image" />
-	<input type="submit" value="Submit" />
+<form action="/edit" method="POST" enctype="multipart/form-data">
+	<input type="file" name="image" /> <br />
+	<textarea name="comments" placeholder="Write your comments here: "></textarea>
+	<br />
+	<a href="/edit"><button>Submit</button></a>
 </form>
 
 <%- include('../partials/footer'); %>

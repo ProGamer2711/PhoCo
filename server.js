@@ -1,7 +1,6 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const formidable = require("formidable");
 
 const app = express();
 

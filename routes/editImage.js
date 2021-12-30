@@ -13,37 +13,37 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
 	var form = new formidable.IncomingForm({
-		uploadDir: path.join(__dirname, "..", "uploads", "images"),
+		uploadDir: path.join(__dirname, "..", "downloads"),
 	});
-	form.parse(req, (err, fields, files) => {
+	form.parse(req, async (err, fields, files) => {
 		if (err) {
 			console.log(err);
 			return res.status(500).send(err);
 		}
 
-		fs.renameSync(
-			files.image.filepath,
-			path.join(
-				__dirname,
-				"..",
-				"uploads",
-				"images",
-				files.image.originalFilename
-			)
+		const downloadsPath = path.join(
+			__dirname,
+			"..",
+			"downloads",
+			files.image.originalFilename
 		);
 
-		addComments(
-			path.join(
-				__dirname,
-				"..",
-				"uploads",
-				"images",
-				files.image.originalFilename
-			),
-			fields.comments.split("\n")
+		const uploadsPath = path.join(
+			__dirname,
+			"..",
+			"uploads",
+			files.image.originalFilename
 		);
 
-		return res.send("File uploaded successfully");
+		fs.renameSync(files.image.filepath, downloadsPath);
+
+		addComments(downloadsPath, uploadsPath, fields.comments.split("\n"), () => {
+			res.render("pages/download", {
+				title: "PhoCo",
+				stylesheet: "css/style.css",
+				name: files.image.originalFilename,
+			});
+		});
 	});
 });
 

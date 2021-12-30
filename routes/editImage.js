@@ -5,10 +5,7 @@ const formidable = require("formidable");
 const addComments = require("../imageManipulationUtil");
 
 router.get("/", (req, res) => {
-	res.render("pages/index", {
-		title: "PhoCo",
-		stylesheet: "css/style.css",
-	});
+	res.redirect("/");
 });
 
 router.post("/", (req, res) => {

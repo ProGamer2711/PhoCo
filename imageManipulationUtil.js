@@ -1,31 +1,27 @@
-const fs = require("fs");
 const Jimp = require("jimp");
+const fs = require("fs");
 
-module.exports = async (path, comments) => {
-	const originalImage = await Jimp.read(path);
+module.exports = async (readPath, writePath, comments, callback) => {
+	const originalImage = await Jimp.read(readPath);
 	const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
 
-	const maxElement = comments.reduce(
-		(maxEl, currentEl) =>
-			(maxEl = maxEl.length < currentEl.length ? currentEl : maxEl)
-	);
-
-	const textWidth = Jimp.measureText(font, maxElement);
-	const addedWidth = textWidth > 500 ? textWidth / 2 : textWidth;
-	const commentsHeight = comments.reduce((commentsHeight, comment) => {
-		const textWidth = Jimp.measureText(font, comment);
-		const textHeight = Jimp.measureTextHeight(font, comment);
+	const addedWidth = 500;
+	const commentsHeight = comments.reduce((commentsHeight, _, i) => {
+		comments[i] = `${i + 1}. ${comments[i]}`;
+		const textWidth = Jimp.measureText(font, comments[i]);
+		const textHeight = Jimp.measureTextHeight(font, comments[i]);
 		const lines = Math.ceil(textWidth / addedWidth);
 		const height = textHeight * lines;
 		return commentsHeight + height;
 	}, 0);
-	const imageHeight = commentsHeight + 10 * (comments.length + 3);
+	const imageHeight = commentsHeight + 10;
 
-	originalImage.resize(Jimp.AUTO, imageHeight);
+	if (imageHeight > originalImage.getHeight())
+		originalImage.resize(Jimp.AUTO, imageHeight);
 
 	const newImage = new Jimp(
 		originalImage.getWidth() + addedWidth,
-		imageHeight,
+		originalImage.getHeight(),
 		0xffffffff
 	);
 
@@ -50,14 +46,12 @@ module.exports = async (path, comments) => {
 		font,
 		addedWidth
 	) {
-		let text = `${index + 1}. ${comments[index]}`;
-
 		image.print(
 			font,
 			startWidth,
 			startHeight,
-			text,
-			addedWidth,
+			comments[index],
+			addedWidth - 10,
 			(err, image, { y }) => {
 				if (err) console.log(err);
 				comments[index + 1]
@@ -75,6 +69,8 @@ module.exports = async (path, comments) => {
 		);
 	}
 
-	newImage.write(`PhoCo_${path.split(".")[0]}.png`);
-	fs.rmSync(path);
+	newImage.write(writePath);
+	fs.rmSync(readPath);
+
+	callback();
 };

@@ -1,8 +1,16 @@
 <%- include('../partials/header', { title, stylesheet }); %>
 
 <form action="/edit" method="POST" enctype="multipart/form-data">
-	<input type="file" name="image" /> <br />
-	<textarea name="comments" placeholder="Write your comments here: "></textarea>
+	<input type="file" name="image" required /> <br />
+	<textarea
+		name="comments"
+		placeholder="Write your comments here: "
+		cols="199"
+		rows="30"
+		required
+		spellcheck="true"
+		style="resize: vertical"
+	></textarea>
 	<br />
 	<a href="/edit"><button>Submit</button></a>
 </form>

@@ -1,0 +1,10 @@
+<%- include("../partials/header", { title, stylesheet }); %>
+
+<img
+	src="/uploads/<%- name %>"
+	alt="Your new image isn't rendering properly. Please try refreshing."
+/>
+
+<a href="/uploads/<%- name %>" download="<%- name %>">Download the image</a>
+
+<%- include("../partials/footer"); %>

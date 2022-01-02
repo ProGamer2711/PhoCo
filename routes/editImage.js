@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
 
 		fs.renameSync(files.image.filepath, downloadsPath);
 
-		addComments(downloadsPath, uploadsPath, fields.comments.split("\n"), () => {
+		addComments(downloadsPath, uploadsPath, JSON.parse(fields.comments), () => {
 			res.render("pages/download", {
 				title: "PhoCo",
 				stylesheet: "css/style.css",

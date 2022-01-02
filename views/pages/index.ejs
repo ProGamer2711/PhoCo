@@ -2,7 +2,19 @@
 
 <form action="/edit" method="POST" enctype="multipart/form-data">
 	<input type="file" name="image" required /> <br />
-	<textarea
+
+	<input
+		type="text"
+		id="comment-input"
+		placeholder="Write a comment: "
+		spellcheck="true"
+	/>
+
+	<button onclick="addComment();" type="button">Add comment</button><br />
+
+	<ol id="comments-list"></ol>
+	<br />
+	<!-- <textarea
 		name="comments"
 		placeholder="Write your comments here: "
 		cols="199"
@@ -11,9 +23,14 @@
 		spellcheck="true"
 		style="resize: vertical"
 		lang="en"
-	></textarea>
+	></textarea> -->
 	<br />
-	<a href="/edit"><button>Submit</button></a>
+
+	<input type="text" name="comments" style="display: none" />
+
+	<button type="submit">Submit</button>
 </form>
+
+<script src="./js/index.js"></script>
 
 <%- include('../partials/footer'); %>

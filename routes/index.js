@@ -7,4 +7,8 @@ router.get("/", (req, res) => {
 	});
 });
 
+router.all("*", (_, res) => {
+	res.redirect("/");
+});
+
 module.exports = router;

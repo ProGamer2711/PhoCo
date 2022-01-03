@@ -25,10 +25,12 @@ setInterval(() => {
 	const uploadsPath = path.join(__dirname, "uploads");
 
 	fs.readdirSync(downloadsPath).forEach((file) => {
+		if (file === ".gitignore") return;
 		fs.rmSync(path.join(downloadsPath, file));
 	});
 
 	fs.readdirSync(uploadsPath).forEach((file) => {
+		if (file === ".gitignore") return;
 		fs.rmSync(path.join(uploadsPath, file));
 	});
 }, 1000 * 60 * 30);

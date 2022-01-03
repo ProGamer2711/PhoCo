@@ -1,0 +1,32 @@
+<%- include("../partials/header", { title, stylesheet }); %>
+
+<form id="edit-form" action="/process" method="POST">
+	<input
+		type="text"
+		id="comment-input"
+		placeholder="Write a comment: "
+		spellcheck="true"
+	/>
+
+	<button onclick="addComment();" type="button">Add comment</button><br />
+
+	<p id="feedback"></p>
+
+	<ol id="comments-list"></ol>
+	<br />
+
+	<img src="/downloads/<%- image %>" id="uploaded-image" draggable="false" />
+	<br />
+
+	<input type="text" name="comments" style="display: none" />
+	<input type="text" name="image" style="display: none" />
+
+	<button type="submit">Submit</button>
+</form>
+
+<script src="./js/edit.js"></script>
+<script>
+	imageExport.value = "<%- image %>";
+</script>
+
+<%- include("../partials/footer"); %>

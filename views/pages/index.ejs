@@ -1,33 +1,7 @@
 <%- include('../partials/header', { title, stylesheet }); %>
 
-<form action="/edit" method="POST" enctype="multipart/form-data">
+<form id="form" action="/edit" method="POST" enctype="multipart/form-data">
 	<input type="file" name="image" required /> <br />
-
-	<input
-		type="text"
-		id="comment-input"
-		placeholder="Write a comment: "
-		spellcheck="true"
-	/>
-
-	<button onclick="addComment();" type="button">Add comment</button><br />
-
-	<ol id="comments-list"></ol>
-	<br />
-	<!-- <textarea
-		name="comments"
-		placeholder="Write your comments here: "
-		cols="199"
-		rows="30"
-		required
-		spellcheck="true"
-		style="resize: vertical"
-		lang="en"
-	></textarea> -->
-	<br />
-
-	<input type="text" name="comments" style="display: none" />
-
 	<button type="submit">Submit</button>
 </form>
 

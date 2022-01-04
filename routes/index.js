@@ -7,10 +7,6 @@ router.get("/", (req, res) => {
 	});
 });
 
-router.get("*", (_, res) => {
-	res.redirect("/");
-});
-
 module.exports = {
 	path: "/",
 	router,

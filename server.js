@@ -17,6 +17,8 @@ fs.readdirSync(routesPath).forEach((file) => {
 	app.use(route.path, route.router);
 });
 
+app.all("*", (_, res) => res.redirect("/"));
+
 setInterval(() => {
 	const downloadsPath = path.join(__dirname, "downloads");
 	const uploadsPath = path.join(__dirname, "uploads");

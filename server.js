@@ -11,14 +11,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/", require(path.join(routesPath, "index")));
 
-fs.readdirSync(routesPath)
-	.filter((file) => file !== "index.js")
-	.forEach((file) => {
-		const route = require(path.join(routesPath, file));
-		app.use(route.path, route.router);
-	});
+fs.readdirSync(routesPath).forEach((file) => {
+	const route = require(path.join(routesPath, file));
+	app.use(route.path, route.router);
+});
 
 setInterval(() => {
 	const downloadsPath = path.join(__dirname, "downloads");

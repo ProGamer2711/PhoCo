@@ -15,7 +15,7 @@
 	<ol id="comments-list"></ol>
 	<br />
 
-	<img src="/downloads/<%- image %>" id="uploaded-image" draggable="false" />
+	<canvas id="edit-canvas"></canvas>
 	<br />
 
 	<input type="text" name="comments" style="display: none" />
@@ -27,6 +27,7 @@
 <script src="./js/edit.js"></script>
 <script>
 	imageExport.value = "<%- image %>";
+	backgroundImage.src = "/downloads/<%- image %>";
 </script>
 
 <%- include("../partials/footer"); %>

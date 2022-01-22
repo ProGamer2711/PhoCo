@@ -2,11 +2,13 @@ const router = require("express").Router();
 const path = require("path");
 const addComments = require("../imageManipulationUtil");
 
-router.post("/", (req, res) =>
+router.post("/", (req, res) => {
+	const comments = JSON.parse(req.body.comments);
+
 	addComments(
 		path.join(__dirname, "..", "downloads", req.body.image),
 		path.join(__dirname, "..", "uploads", req.body.image),
-		JSON.parse(req.body.comments),
+		comments,
 		() => {
 			res.render("pages/download", {
 				title: "PhoCo",
@@ -14,8 +16,8 @@ router.post("/", (req, res) =>
 				name: req.body.image,
 			});
 		}
-	)
-);
+	);
+});
 
 module.exports = {
 	path: "/process",

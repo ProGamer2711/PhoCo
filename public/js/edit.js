@@ -15,7 +15,7 @@ const ctx = editCanvas.getContext("2d");
 
 const backgroundImage = new Image();
 
-let comments = {};
+let comments = [];
 
 const strokeStyle = {
 	strokeWidth: 3,
@@ -31,7 +31,20 @@ function addComment() {
 	if (!dimensions)
 		return (feedback.innerHTML = "You have to select part of the image first.");
 
-	comments[comment] = dimensions;
+	if (dimensions.width < 0) {
+		dimensions.x += dimensions.width;
+		dimensions.width = Math.abs(dimensions.width);
+	}
+	if (dimensions.height < 0) {
+		dimensions.y += dimensions.height;
+		dimensions.height = Math.abs(dimensions.height);
+	}
+	dimensions.x = parseInt(dimensions.x);
+	dimensions.y = parseInt(dimensions.y);
+	dimensions.width = parseInt(dimensions.width);
+	dimensions.height = parseInt(dimensions.height);
+
+	comments.push({ comment, dimensions });
 	commentInput.value = "";
 	dimensions = null;
 	renderComments();
@@ -39,14 +52,14 @@ function addComment() {
 }
 
 function removeComment(index) {
-	delete comments[Object.keys(comments)[index]];
+	delete comments[index];
 	renderComments();
 	renderSelections();
 }
 
 function renderComments() {
 	commentsList.innerHTML = "";
-	Object.keys(comments).forEach((comment, i) => {
+	comments.forEach(({ comment }, i) => {
 		const commentElement = document.createElement("li");
 		commentElement.innerHTML = `${comment} <button onclick="removeComment(${i})">Remove comment</button>`;
 		commentsList.appendChild(commentElement);
@@ -60,13 +73,13 @@ function renderSelections() {
 	editCanvas.height = backgroundImage.height;
 	ctx.drawImage(backgroundImage, 0, 0);
 
-	Object.values(comments).forEach((dimensions) =>
+	comments.forEach(({ dimensions }) =>
 		drawSelectionRect(dimensions, strokeStyle, "#BBBB")
 	);
 }
 
 function exportComments() {
-	commentsExport.value = JSON.stringify(Object.keys(comments));
+	commentsExport.value = JSON.stringify(comments);
 }
 
 editCanvas.addEventListener("mousedown", (event) => {

@@ -1,5 +1,4 @@
 const Jimp = require("jimp");
-const { normal } = require("color-blend");
 
 module.exports = async (readPath, writePath, comments, callback) => {
 	const originalImage = await Jimp.read(readPath);
@@ -85,17 +84,21 @@ module.exports = async (readPath, writePath, comments, callback) => {
 						b: image.bitmap.data[idx + 2],
 						a: image.bitmap.data[idx + 3] / 255,
 					};
-					const newColor = normal(color, {
+
+					const selectionColor = {
 						r: 187,
 						g: 187,
 						b: 187,
-						a: 187 / 255,
-					});
+						a: 187,
+					};
+
+					const newColor = blendColors(color, selectionColor);
+
 					const hexColor = Jimp.rgbaToInt(
 						newColor.r,
 						newColor.g,
 						newColor.b,
-						newColor.a * 255
+						255
 					);
 
 					image.setPixelColor(hexColor, x, y);
@@ -113,6 +116,14 @@ module.exports = async (readPath, writePath, comments, callback) => {
 
 			image.print(font, textX, textY, text);
 		});
+	}
+
+	function blendColors(c1, c2) {
+		const stepPoint = c2.a / 255;
+		const r = c1.r + stepPoint * (c2.r - c1.r);
+		const g = c1.g + stepPoint * (c2.g - c1.g);
+		const b = c1.b + stepPoint * (c2.b - c1.b);
+		return { r, g, b };
 	}
 
 	newImage.write(writePath);

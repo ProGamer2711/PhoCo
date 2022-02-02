@@ -72,7 +72,7 @@ module.exports = async (readPath, writePath, comments, callback) => {
 
 	async function drawSelectionRects(comments, font, image) {
 		comments.forEach(({ dimensions }) => {
-			image.scan(
+			image.scanQuiet(
 				dimensions.x,
 				dimensions.y,
 				dimensions.width,
@@ -104,6 +104,12 @@ module.exports = async (readPath, writePath, comments, callback) => {
 					image.setPixelColor(hexColor, x, y);
 				}
 			);
+
+			dashedBorder(
+				image,
+				{ lineDash: [20, 5], lineWidth: 3, color: 0x1a53ffbb },
+				dimensions
+			);
 		});
 		comments.forEach(({ dimensions }, i) => {
 			const text = `${i + 1}`;
@@ -124,6 +130,110 @@ module.exports = async (readPath, writePath, comments, callback) => {
 		const g = c1.g + stepPoint * (c2.g - c1.g);
 		const b = c1.b + stepPoint * (c2.b - c1.b);
 		return { r, g, b };
+	}
+
+	function dashedBorder(
+		image,
+		{ lineDash, lineWidth, color },
+		{ x, y, width, height }
+	) {
+		let drawing = true,
+			passed = 0,
+			outsideWidth = lineWidth - 1;
+
+		color = Jimp.intToRGBA(color);
+
+		// Top border
+		for (let i = x - outsideWidth; i < x + width + outsideWidth; i++) {
+			if (drawing) {
+				for (let k = 0; k < lineWidth; k++) {
+					image.setPixelColor(
+						Jimp.rgbaToInt(color.r, color.g, color.b, 255),
+						i,
+						y - k
+					);
+				}
+			}
+
+			passed++;
+			if (
+				(passed >= lineDash[0] && drawing) ||
+				(passed >= lineDash[1] && !drawing)
+			) {
+				drawing = !drawing;
+				passed = 0;
+			}
+		}
+
+		// Right border
+		for (
+			let j = y + lineWidth - outsideWidth;
+			j < y + height - (lineWidth - outsideWidth);
+			j++
+		) {
+			if (drawing) {
+				for (let k = 0; k < lineWidth; k++) {
+					image.setPixelColor(
+						Jimp.rgbaToInt(color.r, color.g, color.b, 255),
+						x + width + k - 1,
+						j
+					);
+				}
+			}
+
+			passed++;
+			if (
+				(passed >= lineDash[0] && drawing) ||
+				(passed >= lineDash[1] && !drawing)
+			) {
+				drawing = !drawing;
+				passed = 0;
+			}
+		}
+
+		// Bottom border
+		for (let i = x + width + lineWidth - outsideWidth; i > x - lineWidth; i--) {
+			if (drawing) {
+				for (let k = 0; k < lineWidth; k++) {
+					image.setPixelColor(
+						Jimp.rgbaToInt(color.r, color.g, color.b, 255),
+						i,
+						y + height + k - 1
+					);
+				}
+			}
+
+			passed++;
+			if (
+				(passed >= lineDash[0] && drawing) ||
+				(passed >= lineDash[1] && !drawing)
+			) {
+				drawing = !drawing;
+				passed = 0;
+			}
+		}
+
+		// Left border
+		for (let j = y + height - outsideWidth; j > y; j--) {
+			if (drawing) {
+				for (let k = 0; k < lineWidth; k++) {
+					image.setPixelColor(
+						Jimp.rgbaToInt(color.r, color.g, color.b, 255),
+						x - k,
+						j
+					);
+				}
+			}
+
+			passed++;
+			if (
+				(passed >= lineDash[0] && drawing) ||
+				(passed >= lineDash[1] && !drawing)
+			) {
+				drawing = !drawing;
+				passed = 0;
+			}
+		}
 	}
 
 	newImage.write(writePath);

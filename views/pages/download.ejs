@@ -1,12 +1,12 @@
-<%- include("../partials/header", { title, stylesheet }); %>
+<%- include("../partials/header") %>
 
 <img
-	src="/uploads/<%- name %>"
-	alt="Your image isn't rendering properly. Please try refreshing."
+	src="/uploads/<%= name %>"
+	alt="Your image isn't rendering properly. Please try again."
 />
 
-<a href="/uploads/<%- name %>" download="<%- name %>"
-	><button>Download the image</button></a
->
+<a href="/uploads/<%= name %>" download="<%= name %>">
+	<button>Download the image</button>
+</a>
 
-<%- include("../partials/footer"); %>
+<%- include("../partials/footer") %>

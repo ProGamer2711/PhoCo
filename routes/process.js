@@ -3,6 +3,14 @@ const path = require("path");
 const addComments = require("../imageManipulationUtil");
 
 router.post("/", (req, res) => {
+	if (req.body.comments == "")
+		return res.render("pages/edit", {
+			title: "PhoCo",
+			stylesheet: "css/style.css",
+			image: req.body.image,
+			errors: ["Please enter at least one comment"],
+		});
+
 	const comments = JSON.parse(req.body.comments);
 
 	addComments(

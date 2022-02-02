@@ -1,7 +1,7 @@
 const commentInput = document.querySelector("#comment-input");
 const commentsList = document.querySelector("#comments-list");
-const commentsExport = document.querySelector('input[name="comments"]');
-const imageExport = document.querySelector('input[name="image"]');
+const commentsExport = document.querySelector("input[name='comments']");
+const imageExport = document.querySelector("input[name='image']");
 const form = document.querySelector("#edit-form");
 const editCanvas = document.querySelector("#edit-canvas");
 const feedback = document.querySelector("#feedback");
@@ -26,8 +26,8 @@ const strokeStyle = {
 function addComment() {
 	const comment = commentInput.value;
 	if (comment === "") return (feedback.innerHTML = "Comment cannot be empty.");
-	if (comments.length >= 200)
-		return (feedback.innerHTML = "You cannot have more than 200 comments.");
+	if (comments.length >= 100)
+		return (feedback.innerHTML = "You cannot have more than 100 comments.");
 	if (!dimensions)
 		return (feedback.innerHTML = "You have to select part of the image first.");
 
@@ -73,8 +73,8 @@ function renderSelections() {
 	editCanvas.height = backgroundImage.height;
 	ctx.drawImage(backgroundImage, 0, 0);
 
-	comments.forEach(({ dimensions }) =>
-		drawSelectionRect(dimensions, strokeStyle, "#BBBB")
+	comments.forEach(({ dimensions }, i) =>
+		drawSelectionRect((i + 1).toString(), dimensions, strokeStyle, "#BBBB")
 	);
 }
 
@@ -109,11 +109,12 @@ editCanvas.addEventListener("mousemove", (event) => {
 			height: endCoords.y - startCoords.y,
 		};
 
-		drawSelectionRect(dimensions, strokeStyle, "#BBBB");
+		drawSelectionRect("#", dimensions, strokeStyle, "#BBBB");
 	}
 });
 
 function drawSelectionRect(
+	text,
 	{ x, y, width, height },
 	{ strokeWidth, lineDash, strokeColor },
 	fillColor
@@ -127,11 +128,18 @@ function drawSelectionRect(
 	ctx.fillStyle = fillColor;
 
 	ctx.fillRect(x, y, width, height);
+
+	console.log(ctx.measureText(text));
+
+	ctx.fillStyle = "#000";
+	ctx.font = "16px sans-serif";
+	ctx.textBaseline = "middle";
+	ctx.textAlign = "center";
+
+	ctx.fillText(text, x + width / 2, y + height / 2, width);
 }
 
-editCanvas.addEventListener("mouseup", () => {
-	painting = false;
-});
+editCanvas.addEventListener("mouseup", () => (painting = false));
 
 form.addEventListener("keydown", (event) => {
 	if (event.key === "Enter") {

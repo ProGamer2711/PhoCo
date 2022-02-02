@@ -1,10 +1,12 @@
-<%- include('../partials/header', { title, stylesheet }); %>
+<%- include("../partials/header") %> <%- include("../partials/errorMessages") %>
 
 <form id="form" action="/edit" method="POST" enctype="multipart/form-data">
-	<input type="file" name="image" required /> <br />
-	<button type="submit">Submit</button>
+	<div>
+		<label for="image">Image:</label>
+		<input type="file" name="image" id="image-input" required />
+	</div>
+
+	<button type="submit" id="submit-button">Submit</button>
 </form>
 
-<script src="./js/index.js"></script>
-
-<%- include('../partials/footer'); %>
+<%- include('../partials/footer') %>

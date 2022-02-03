@@ -34,6 +34,8 @@ function addComment() {
 
 	commentInput.focus();
 
+	feedback.innerHTML = "";
+
 	if (comment === "") return (feedback.innerHTML = "Comment cannot be empty.");
 	if (comments.length >= 100)
 		return (feedback.innerHTML = "You cannot have more than 100 comments.");

@@ -1,5 +1,3 @@
-console.log(history.state, history.length);
-
 if (history.state !== null && history.state < history.length)
 	location.href = "/";
 else history.replaceState(history.length, "", window.location.href);
@@ -31,6 +29,11 @@ const strokeStyle = {
 
 function addComment() {
 	const comment = commentInput.value;
+
+	commentInput.value = "";
+
+	commentInput.focus();
+
 	if (comment === "") return (feedback.innerHTML = "Comment cannot be empty.");
 	if (comments.length >= 100)
 		return (feedback.innerHTML = "You cannot have more than 100 comments.");
@@ -45,14 +48,15 @@ function addComment() {
 		dimensions.y += dimensions.height;
 		dimensions.height = Math.abs(dimensions.height);
 	}
+
 	dimensions.x = parseInt(dimensions.x);
 	dimensions.y = parseInt(dimensions.y);
 	dimensions.width = parseInt(dimensions.width);
 	dimensions.height = parseInt(dimensions.height);
 
 	comments.push({ comment, dimensions });
-	commentInput.value = "";
 	dimensions = null;
+
 	renderComments();
 	renderSelections();
 }
@@ -135,8 +139,6 @@ function drawSelectionRect(
 
 	ctx.fillRect(x, y, width, height);
 
-	console.log(ctx.measureText(text));
-
 	ctx.fillStyle = "#000";
 	ctx.font = "16px sans-serif";
 	ctx.textBaseline = "middle";
@@ -147,7 +149,7 @@ function drawSelectionRect(
 
 editCanvas.addEventListener("mouseup", () => (painting = false));
 
-form.addEventListener("keydown", (event) => {
+document.body.addEventListener("keydown", (event) => {
 	if (event.key === "Enter") {
 		event.preventDefault();
 		addComment();

@@ -24,7 +24,12 @@ fs.readdirSync(routesPath).forEach((file) => {
 	app.use(route.path, route.router);
 });
 
-app.all("*", (_, res) => res.redirect("/"));
+app.all("*", (_, res) =>
+	res.status(404).render("pages/error", {
+		title: "PhoCo",
+		stylesheet: "css/style.css",
+	})
+);
 
 const port = process.env.PORT || 5000;
 

@@ -15,20 +15,32 @@ router.post("/", (req, res) => {
 
 	const comments = JSON.parse(req.body.comments);
 
-	addComments(
-		path.join(__dirname, "..", "downloads", req.body.image),
-		path.join(__dirname, "..", "uploads", req.body.image),
-		comments,
-		() => {
-			fs.rmSync(path.join(__dirname, "..", "downloads", req.body.image));
+	const downloadPath = path.join(__dirname, "..", "downloads", req.body.image);
+	const uploadPath = path.join(__dirname, "..", "uploads", req.body.image);
 
-			res.render("pages/download", {
+	if (!fs.existsSync(downloadPath))
+		return res.render("pages/index", {
+			title: "PhoCo",
+			stylesheet: "css/style.css",
+			errors: ["Image was not found; Please try again"],
+		});
+
+	addComments(downloadPath, uploadPath, comments, () => {
+		fs.rmSync(downloadPath);
+
+		if (!fs.existsSync(uploadPath))
+			return res.render("pages/index", {
 				title: "PhoCo",
 				stylesheet: "css/style.css",
-				name: req.body.image,
+				errors: ["Image was not found; Please try again"],
 			});
-		}
-	);
+
+		res.render("pages/download", {
+			title: "PhoCo",
+			stylesheet: "css/style.css",
+			name: req.body.image,
+		});
+	});
 });
 
 module.exports = {

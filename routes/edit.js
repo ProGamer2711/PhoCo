@@ -40,6 +40,11 @@ router.post("/", (req, res) => {
 			path.join(__dirname, "..", "downloads", image)
 		);
 
+		setTimeout(
+			() => fs.rmSync(path.join(__dirname, "..", "downloads", image)),
+			1000 * 60 * 60
+		);
+
 		res.render("pages/edit", {
 			title: "PhoCo",
 			stylesheet: "css/style.css",

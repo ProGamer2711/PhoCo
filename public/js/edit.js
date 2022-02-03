@@ -1,3 +1,9 @@
+console.log(history.state, history.length);
+
+if (history.state !== null && history.state < history.length)
+	location.href = "/";
+else history.replaceState(history.length, "", window.location.href);
+
 const commentInput = document.querySelector("#comment-input");
 const commentsList = document.querySelector("#comments-list");
 const commentsExport = document.querySelector("input[name='comments']");

@@ -2,13 +2,15 @@
 
 <p>Your image is ready! Download it using the button below.</p>
 
-<img
-	src="/uploads/<%= name %>"
-	alt="Your image isn't rendering properly. Please try again."
-/>
+<div>
+	<img
+		src="/uploads/<%= name %>"
+		alt="Your image isn't rendering properly. Please try again."
+	/>
+</div>
 
 <a href="/uploads/<%= name %>" download="<%= name %>">
-	<button>Download the image</button>
+	<button>Download</button>
 </a>
 
 <%- include("../partials/footer") %>

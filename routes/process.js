@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const path = require("path");
+const fs = require("fs");
+
 const addComments = require("../imageManipulationUtil");
 
 router.post("/", (req, res) => {
@@ -18,6 +20,8 @@ router.post("/", (req, res) => {
 		path.join(__dirname, "..", "uploads", req.body.image),
 		comments,
 		() => {
+			fs.rmSync(path.join(__dirname, "..", "downloads", req.body.image));
+
 			res.render("pages/download", {
 				title: "PhoCo",
 				stylesheet: "css/style.css",

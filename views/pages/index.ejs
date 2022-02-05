@@ -1,9 +1,22 @@
 <%- include("../partials/header") %> <%- include("../partials/errorMessages") %>
 
+<h2>Welcome to PhoCo!</h2>
+
+<p>
+	PhoCo is a website where you can comment on certain parts of images. <br />
+	Firstly you upload an image. Then you write a comment and select a part of the
+	image the comment is about. <br />
+	Repeat this process as many times as you want. <br />
+	You can have up to 100 comments per image. <br />
+</p>
+
+<strong>Note: The supported image formats are: jpg, jpeg, png, jfif</strong>
+
+<hr />
+
 <form id="form" action="/edit" method="POST" enctype="multipart/form-data">
 	<div>
-		<label for="image">Image:</label>
-		<input type="file" name="image" id="image-input" required />
+		<input type="file" name="image" required />
 	</div>
 
 	<button type="submit" id="submit-button">Submit</button>

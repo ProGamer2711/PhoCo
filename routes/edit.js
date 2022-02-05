@@ -3,7 +3,7 @@ const formidable = require("formidable");
 const path = require("path");
 const fs = require("fs");
 
-const supportedFormats = ["jpg", "jpeg", "png", "gif"];
+const supportedFormats = ["jpg", "jpeg", "png", "jfif"];
 
 router.post("/", (req, res) => {
 	const form = new formidable.IncomingForm({
@@ -11,21 +11,24 @@ router.post("/", (req, res) => {
 	});
 
 	form.parse(req, async (err, _, files) => {
-		const fileName = files.image.originalFilename;
+		const image = files.image.originalFilename;
 
 		const validExtension = supportedFormats.some(
 			(extension) =>
-				fileName
-					.substr(fileName.length - extension.length, extension.length)
+				image
+					.substr(image.length - extension.length, extension.length)
 					.toLowerCase() == extension.toLowerCase()
 		);
 
-		if (!validExtension)
+		if (!validExtension) {
+			fs.rmSync(files.image.filepath);
+
 			return res.render("pages/index", {
 				title: "PhoCo",
 				stylesheet: "css/style.css",
 				errors: ["Please upload a valid image file"],
 			});
+		}
 
 		if (err) {
 			console.log(err);
@@ -34,13 +37,18 @@ router.post("/", (req, res) => {
 
 		fs.renameSync(
 			files.image.filepath,
-			path.join(__dirname, "..", "downloads", fileName)
+			path.join(__dirname, "..", "downloads", image)
+		);
+
+		setTimeout(
+			() => fs.rmSync(path.join(__dirname, "..", "downloads", image)),
+			1000 * 60 * 60
 		);
 
 		res.render("pages/edit", {
 			title: "PhoCo",
 			stylesheet: "css/style.css",
-			image: fileName,
+			image,
 		});
 	});
 });

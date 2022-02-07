@@ -1,8 +1,7 @@
 <%- include("../partials/header") %> <%- include("../partials/errorMessages") %>
 
 <h2>Welcome to PhoCo!</h2>
-
-<p>
+<p class="border">
 	PhoCo is a website where you can comment on certain parts of images. <br />
 	Firstly you upload an image. Then you write a comment and select a part of the
 	image the comment is about. <br />
@@ -17,14 +16,13 @@
 	be lost.
 </h3>
 
-<hr />
-
 <form id="form" action="/edit" method="POST" enctype="multipart/form-data">
-	<div>
-		<input type="file" name="image" required />
+	<div class="flex-contanier1">
+		<input type="file" name="file" id="file" class="inputfile" />
+		<label for="file">Chose a file</label>
 	</div>
 
-	<button type="submit" id="submit-button">Submit</button>
+	<button type="submit" id="submit-button" class="submitt flex-contanier2" >Start editing</button>
 </form>
 
 <%- include('../partials/footer') %>

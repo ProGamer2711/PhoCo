@@ -30,7 +30,7 @@ router.post("/", (req, res) => {
 
 			return res.render("pages/index", {
 				title: "PhoCo",
-				stylesheet: "css/style.css",
+				stylesheet: "css/index.css",
 				errors: ["Please upload a valid image file"],
 			});
 		}
@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
 
 		res.render("pages/edit", {
 			title: "PhoCo",
-			stylesheet: "css/style.css",
+			stylesheet: "css/edit.css",
 			image,
 		});
 	});

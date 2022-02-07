@@ -1,6 +1,6 @@
 <%- include("../partials/header") %>
 
-<p>Your image is ready! Download it using the button below.</p>
+<p class="ready">Your image is ready! Download it using the button below.</p>
 
 <div>
 	<img
@@ -10,7 +10,7 @@
 </div>
 
 <a href="/uploads/<%= name %>" download="<%= name %>">
-	<button>Download</button>
+	<button class="download">Download</button>
 </a>
 
 <%- include("../partials/footer") %>

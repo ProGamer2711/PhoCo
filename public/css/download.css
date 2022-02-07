@@ -1,0 +1,17 @@
+p.ready{
+    color:#b333a4;
+}
+
+.download{
+    background-color:#270330;
+	color:#fff;
+	display:inline-block;
+	cursor:pointer;
+	transition-duration:0.4s;
+}
+
+.download:hover{
+    background-color:#fff ;
+ color:#270330;
+ border: 1px solid #270330;
+}

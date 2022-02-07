@@ -1,0 +1,43 @@
+h2 {
+	color: #bf0b7a;
+}
+
+p.border {
+	border-bottom-style: dashed;
+	border-top-style:dashed;
+	border-left-style:solid;
+	border-right-style:solid;
+	color:#090d38;
+	padding: 7px 5px;
+	width:80%;
+}
+ 
+.submitt {
+	background-color:#270330;
+	color:#fff;
+	display:inline-block;
+	cursor:pointer;
+	transition-duration:0.4s;
+}
+.submitt:hover {
+ background-color:#fff ;
+ color:#270330;
+ border: 1px solid #270330;
+}
+
+
+
+.flex-contanier1{
+	display:flex;
+	justify-content:center;
+	margin-top:2%;
+}
+.flex-contanier2{
+	display:flex;
+	justify-content:center;
+	margin:35px 45% 0;
+}
+
+
+
+/* te shte se smesqt opa */

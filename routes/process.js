@@ -37,7 +37,7 @@ router.post("/", (req, res) => {
 
 		res.render("pages/download", {
 			title: "PhoCo",
-			stylesheet: "css/style.css",
+			stylesheet: "css/download.css",
 			name: req.body.image,
 		});
 	});

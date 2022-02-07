@@ -11,6 +11,11 @@ router.post("/", (req, res) => {
 	});
 
 	form.parse(req, async (err, _, files) => {
+		if (err) {
+			console.log(err);
+			return res.status(500).send(err);
+		}
+
 		const image = files.image.originalFilename;
 
 		const validExtension = supportedFormats.some(
@@ -30,11 +35,6 @@ router.post("/", (req, res) => {
 			});
 		}
 
-		if (err) {
-			console.log(err);
-			return res.status(500).send(err);
-		}
-
 		fs.renameSync(
 			files.image.filepath,
 			path.join(__dirname, "..", "downloads", image)
@@ -52,6 +52,8 @@ router.post("/", (req, res) => {
 		});
 	});
 });
+
+router.get("*", (_, res) => res.status(403).redirect("/"));
 
 module.exports = {
 	path: "/edit",

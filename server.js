@@ -8,7 +8,9 @@ const app = express();
 const routesPath = path.join(__dirname, "routes");
 
 app.set("view engine", "ejs");
+
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -19,17 +21,21 @@ app.use((_, res, next) => {
 	next();
 });
 
-fs.readdirSync(routesPath).forEach((file) => {
-	const route = require(path.join(routesPath, file));
-	app.use(route.path, route.router);
-});
+try {
+	fs.readdirSync(routesPath).forEach((file) => {
+		const route = require(path.join(routesPath, file));
+		app.use(route.path, route.router);
+	});
 
-app.all("*", (_, res) =>
-	res.status(404).render("pages/error", {
-		title: "PhoCo",
-		stylesheet: "css/style.css",
-	})
-);
+	app.all("*", (_, res) =>
+		res.status(404).render("pages/error", {
+			title: "PhoCo",
+			stylesheet: "css/style.css",
+		})
+	);
+} catch (err) {
+	console.log(err);
+}
 
 const port = process.env.PORT || 5000;
 

@@ -1,6 +1,14 @@
-if (history.state !== null && history.state < history.length)
+if (history.state !== null && history.state < history.length) {
 	location.href = "/";
-else history.replaceState(history.length, "", window.location.href);
+	history.replaceState(null, "", "/");
+} else history.replaceState(history.length, "", window.location.href);
+sessionStorage.setItem(
+	"state",
+	JSON.stringify({
+		state: history.state,
+		length: history.length,
+	})
+);
 
 const commentInput = document.querySelector("#comment-input");
 const commentsList = document.querySelector("#comments-list");
@@ -30,6 +38,11 @@ const strokeStyle = {
 function addComment() {
 	const comment = commentInput.value;
 
+	if (comments.length > 100)
+		return (feedback.innerHTML = "You cannot have more than 100 comments.");
+	if (!dimensions)
+		return (feedback.innerHTML = "You have to select part of the image first.");
+
 	commentInput.value = "";
 
 	commentInput.focus();
@@ -37,19 +50,8 @@ function addComment() {
 	feedback.innerHTML = "";
 
 	if (comment === "") return (feedback.innerHTML = "Comment cannot be empty.");
-	if (comments.length >= 100)
-		return (feedback.innerHTML = "You cannot have more than 100 comments.");
-	if (!dimensions)
-		return (feedback.innerHTML = "You have to select part of the image first.");
 
-	if (dimensions.width < 0) {
-		dimensions.x += dimensions.width;
-		dimensions.width = Math.abs(dimensions.width);
-	}
-	if (dimensions.height < 0) {
-		dimensions.y += dimensions.height;
-		dimensions.height = Math.abs(dimensions.height);
-	}
+	dimensions = correctDimensions(dimensions);
 
 	dimensions.x = parseInt(dimensions.x);
 	dimensions.y = parseInt(dimensions.y);
@@ -61,6 +63,19 @@ function addComment() {
 
 	renderComments();
 	renderSelections();
+}
+
+function correctDimensions(dimensions) {
+	if (dimensions.width < 0) {
+		dimensions.x += dimensions.width;
+		dimensions.width = Math.abs(dimensions.width);
+	}
+	if (dimensions.height < 0) {
+		dimensions.y += dimensions.height;
+		dimensions.height = Math.abs(dimensions.height);
+	}
+
+	return dimensions;
 }
 
 function removeComment(index) {
@@ -121,9 +136,52 @@ editCanvas.addEventListener("mousemove", (event) => {
 			height: endCoords.y - startCoords.y,
 		};
 
+		dimensions = correctDimensions(dimensions);
+
 		drawSelectionRect("#", dimensions, strokeStyle, "#BBBB");
 	}
 });
+
+editCanvas.addEventListener("mouseup", () => (painting = false));
+
+editCanvas.addEventListener("touchstart", (event) => {
+	event.preventDefault();
+
+	painting = true;
+	canvasPosition = editCanvas.getBoundingClientRect();
+
+	startCoords = {
+		x: event.touches[0].clientX - canvasPosition.left,
+		y: event.touches[0].clientY - canvasPosition.top,
+	};
+});
+
+editCanvas.addEventListener("touchmove", (event) => {
+	event.preventDefault();
+
+	if (painting) {
+		canvasPosition = editCanvas.getBoundingClientRect();
+		let endCoords = {
+			x: event.touches[0].clientX - canvasPosition.left,
+			y: event.touches[0].clientY - canvasPosition.top,
+		};
+
+		renderSelections();
+
+		dimensions = {
+			x: startCoords.x,
+			y: startCoords.y,
+			width: endCoords.x - startCoords.x,
+			height: endCoords.y - startCoords.y,
+		};
+
+		dimensions = correctDimensions(dimensions);
+
+		drawSelectionRect("#", dimensions, strokeStyle, "#BBBB");
+	}
+});
+
+editCanvas.addEventListener("touchend", () => (painting = false));
 
 function drawSelectionRect(
 	text,
@@ -148,8 +206,6 @@ function drawSelectionRect(
 
 	ctx.fillText(text, x + width / 2, y + height / 2, width);
 }
-
-editCanvas.addEventListener("mouseup", () => (painting = false));
 
 document.body.addEventListener("keydown", (event) => {
 	if (event.key === "Enter") {

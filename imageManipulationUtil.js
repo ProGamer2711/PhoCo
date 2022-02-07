@@ -236,7 +236,5 @@ module.exports = async (readPath, writePath, comments, callback) => {
 		}
 	}
 
-	newImage.write(writePath);
-
-	callback();
+	newImage.write(writePath, () => callback());
 };

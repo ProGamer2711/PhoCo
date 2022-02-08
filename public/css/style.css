@@ -12,6 +12,7 @@ body {
 	z-index: -1;
 	display:none;
 	border-radius: 8px;
+	justify-content:center;
 }
 
 .inputfile+label{

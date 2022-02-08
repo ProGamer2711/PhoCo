@@ -1,33 +1,32 @@
-
-.comment{
-    background-color:#270330;
-	color:#fff;
-    margin-top:15px;
-	display:inline-block;
-	cursor:pointer;
-	transition-duration:0.4s;
-    border-radius: 8px;
+.comment {
+	background-color: #270330;
+	color: #fff;
+	margin-top: 15px;
+	display: inline-block;
+	cursor: pointer;
+	transition-duration: 0.4s;
+	border-radius: 8px;
 }
 
-.comment:hover{
-    background-color:#fff ;
-    color:#270330;
-    border: 1px solid #270330;
-    border-radius: 8px;
+.comment:hover {
+	background-color: #fff;
+	color: #270330;
+	border: 1px solid #270330;
+	border-radius: 8px;
 }
 
 .subm {
-    background-color:#270330;
-	color:#fff;
-	display:inline-block;
-	cursor:pointer;
-	transition-duration:0.4s;
-    border-radius: 8px;
+	background-color: #270330;
+	color: #fff;
+	display: inline-block;
+	cursor: pointer;
+	transition-duration: 0.4s;
+	border-radius: 8px;
 }
 
-.subm:hover{
-    background-color:#fff ;
-    color:#270330;
-    border: 1px solid #270330;
-    border-radius: 8px;
+.subm:hover {
+	background-color: #fff;
+	color: #270330;
+	border: 1px solid #270330;
+	border-radius: 8px;
 }

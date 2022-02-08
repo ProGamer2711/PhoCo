@@ -4,42 +4,37 @@ h2 {
 
 p.border {
 	border-bottom-style: dashed;
-	border-top-style:dashed;
-	border-left-style:solid;
-	border-right-style:solid;
-	color:#090d38;
+	border-top-style: dashed;
+	border-left-style: solid;
+	border-right-style: solid;
+	color: #090d38;
 	padding: 7px 5px;
-	width:80%;
+	width: 80%;
 }
- 
+
 .submitt {
-	background-color:#270330;
-	color:#fff;
-	display:inline-block;
-	cursor:pointer;
-	transition-duration:0.4s;
+	background-color: #270330;
+	color: #fff;
+	display: inline-block;
+	cursor: pointer;
+	transition-duration: 0.4s;
 	border-radius: 8px;
 }
 .submitt:hover {
- background-color:#fff ;
- color:#270330;
- border: 1px solid #270330;
- border-radius: 8px;
+	background-color: #fff;
+	color: #270330;
+	border: 1px solid #270330;
+	border-radius: 8px;
 }
 
-
-
-.flex-contanier1{
-	display:flex;
-	justify-content:center;
-	margin-top:2%;
-}
-.flex-contanier2{
-	display:flex;
-	justify-content:center;
-	margin:35px 45% 0;
+.flex-contanier1 {
+	display: flex;
+	justify-content: center;
+	margin-top: 2%;
 }
 
-
-
-/* te shte se smesqt opa */
+.flex-contanier2 {
+	display: flex;
+	justify-content: center;
+	margin: 35px 45% 0;
+}

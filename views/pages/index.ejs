@@ -18,11 +18,13 @@
 
 <form id="form" action="/edit" method="POST" enctype="multipart/form-data">
 	<div class="flex-contanier1">
-		<input type="file" name="file" id="file" class="inputfile" />
+		<input type="file" name="image" id="file" class="inputfile" required />
 		<label for="file">Chose a file</label>
 	</div>
 
-	<button type="submit" id="submit-button" class="submitt flex-contanier2" >Start editing</button>
+	<button type="submit" id="submit-button" class="submitt flex-contanier2">
+		Start editing
+	</button>
 </form>
 
 <%- include('../partials/footer') %>

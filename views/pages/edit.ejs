@@ -2,15 +2,10 @@
 
 <form id="edit-form" action="/process" method="POST">
 	<div>
-		<input
-			type="text"
-			id="comment-input"
-			placeholder="Write a comment"
-			spellcheck="true"
-		/>
-
-		<button onclick="addComment();" type="button">Add comment</button>
-	</div>
+		<textarea id="comment-input" name="comment-input" rows="5" col="100"></textarea>
+	</textarea>
+		<label for="comment-input">
+		<button onclick="addComment();" type="button"  class="comment">Add comment</button>
 
 	<p id="feedback"></p>
 
@@ -25,7 +20,7 @@
 	<input type="text" name="comments" style="display: none" />
 	<input type="text" name="image" style="display: none" />
 
-	<button type="submit">Submit</button>
+	<button type="submit" class="subm">Submit</button>
 </form>
 
 <script src="./js/edit.js"></script>

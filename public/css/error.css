@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 h2.err{
-  color:#2d32ad;
-=======
-h2.err {
-	color: blueviolet;
+	color:#2d32ad;
 }
+
 p.ob {
 	color: #2d32ad;
 	border-bottom-style: dashed;
@@ -14,5 +11,4 @@ p.ob {
 	color: #090d38;
 	padding: 7px 5px;
 	width: 80%;
->>>>>>> 7d7c238d9bd4125139a17a30db617938eadeb9e2
 }

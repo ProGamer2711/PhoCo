@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"start": "nodemon ."
+		"start": "node server.js"
 	},
 	"repository": {
 		"type": "git",
@@ -21,7 +21,6 @@
 		"ejs": "^3.1.6",
 		"express": "^4.17.2",
 		"formidable": "^2.0.1",
-		"jimp": "^0.16.1",
-		"nodemon": "^2.0.15"
+		"jimp": "^0.16.1"
 	}
 }

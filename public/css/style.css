@@ -11,6 +11,7 @@ body {
 	position: absolute;
 	z-index: -1;
 	display:none;
+	border-radius: 8px;
 }
 
 .inputfile+label{
@@ -19,6 +20,7 @@ body {
 	color:#fff;
 	background-color:black;
 	display: inline-block;
+	border-radius: 8px;
 }
 
 .inputfile:focus+label,

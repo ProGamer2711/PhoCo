@@ -18,11 +18,13 @@ p.border {
 	display:inline-block;
 	cursor:pointer;
 	transition-duration:0.4s;
+	border-radius: 8px;
 }
 .submitt:hover {
  background-color:#fff ;
  color:#270330;
  border: 1px solid #270330;
+ border-radius: 8px;
 }
 
 

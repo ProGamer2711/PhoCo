@@ -1,0 +1,13 @@
+h2.err{
+  color:blueviolet;
+}
+ p.ob{
+     color:#2d32ad;
+     border-bottom-style: dashed;
+	   border-top-style:dashed;
+	   border-left-style:solid;
+	   border-right-style:solid;
+	   color:#090d38;
+	   padding: 7px 5px;
+    	width:80%;
+ }
